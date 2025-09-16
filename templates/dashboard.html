@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .alert { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Dashboard</h1>
+    <a href="/donor">Add Donor</a> | <a href="/request">Add Request</a> | <a href="/fmea">Add FMEA</a> | <a href="/logout">Logout</a>
+    <h2>Donors</h2>
+    <table>
+        <tr><th>Name</th><th>Blood Type</th><th>Risk Log</th></tr>
+        {% for donor in donors %}
+        <tr><td>{{ donor[1] }}</td><td>{{ donor[2] }}</td><td>{{ donor[5] }}</td></tr>
+        {% endfor %}
+    </table>
+    <h2>Requests</h2>
+    <table>
+        <tr><th>Hospital</th><th>Blood Type</th><th>Quantity</th><th>Risk Assessment</th></tr>
+        {% for req in requests %}
+        <tr><td>{{ req[1] }}</td><td>{{ req[2] }}</td><td>{{ req[3] }}</td><td>{{ req[4] }}</td></tr>
+        {% endfor %}
+    </table>
+    <h2>High Risk Alerts</h2>
+    {% if high_risks %}
+        <div class="alert">
+        {% for risk in high_risks %}
+            <p>{{ risk[2] }} (RPN: {{ risk[8] }})</p>
+        {% endfor %}
+        </div>
+    {% else %}
+        <p>No high risks (RPN > 60)</p>
+    {% endif %}
+</body>
+</html>

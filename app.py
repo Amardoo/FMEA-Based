@@ -30,7 +30,7 @@ def init_db():
 @app.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.process_step['username']
+        username = request.form['username']
         password = hashlib.md5(request.form['password'].encode()).hexdigest()
         conn = sqlite3.connect('database.db')
         c = conn.cursor()
@@ -81,7 +81,7 @@ def donor():
 
 # Request section
 @app.route('/request', methods=['GET', 'POST'])
-def request():
+def blood_request():
     if 'username' not in session:
         return redirect(url_for('login'))
     if request.method == 'POST':
@@ -132,4 +132,4 @@ def logout():
 
 if __name__ == '__main__':
     init_db()
-    app.run(debug=True)
+    app.run(debug=True, port=5001)
